@@ -1,23 +1,23 @@
 /* eslint-disable no-multiple-empty-lines */
 class MaxBinaryHeap {
   constructor() {
-    this.values = [41, 39, 33, 18, 27, 12]
+    this.values = [41, 39, 33, 18, 27, 12];
   }
   insert(val) {
-    this.values.push(val)
-    let childNodeIdx = this.values.length - 1
-    let parentNodeIdx = Math.floor((childNodeIdx - 1) / 2)
-    
+    this.values.push(val);
+    let childNodeIdx = this.values.length - 1;
+    let parentNodeIdx = Math.floor((childNodeIdx - 1) / 2);
+
     //MY ITERATIVE SOLUTION
     while (val > this.values[parentNodeIdx]) {
-      let temp = this.values[parentNodeIdx]
-      this.values[parentNodeIdx] = val
-      this.values[childNodeIdx] = temp
-      childNodeIdx = parentNodeIdx
-      parentNodeIdx = Math.floor((childNodeIdx - 1) / 2)
+      let temp = this.values[parentNodeIdx];
+      this.values[parentNodeIdx] = val;
+      this.values[childNodeIdx] = temp;
+      childNodeIdx = parentNodeIdx;
+      parentNodeIdx = Math.floor((childNodeIdx - 1) / 2);
     }
-    
-    //UDEMY SOLUTIOn
+
+    //UDEMY SOLUTION
     // while (childNodeIdx > 0) {
     //   let parentNodeIdx = Math.floor((childNodeIdx - 1) / 2)
     //   let parent = this.values[parentNodeIdx]
@@ -27,26 +27,55 @@ class MaxBinaryHeap {
     //   childNodeIdx = parentNodeIdx
     // }
 
-    console.log(this.values)
+    console.log(this.values);
   }
   //remove the maximum value
   extractMax() {
     //remove the root
-    let maxNum = this.values.shift()
-    //swap the root with the last value
-    let poppedEl = this.values.pop()
-    this.values.unshift(poppedEl)
-    
-    let parentIdx = 0
-    let parent = this.values[0]
+    let max = this.values[0];
+    let end = this.values.pop();
+    this.values[0] = end;
+    this.sinkDown();
+    return max;
+  }
+  //  [33, 39, 41, 18, 27, 12]
+  sinkDown() {
+    let idx = 0;
+    let length = this.values.length;
+    let element = this.values[0];
 
-    while () {
-      let leftChildIdx = (2 * parentIdx) + 1
-      let rightChildIdx = (2 * parenIdx) + 2
+    while (true) {
+      let leftChildIdx = 2 * idx + 1;
+      let rightChildIdx = 2 * idx + 2;
 
-      let biggestChild = Math.max(this.values[leftChildIdx], this.values[rightChildIdx])
+      let leftChild;
+      let rightChild;
 
-      if (parent < biggestChild)
+      let swap = null; //keep track of position that we're going to swap with
+
+      if (leftChildIdx < length) {
+        leftChild = this.values[leftChildIdx];
+        if (leftChild > element) {
+          swap = leftChildIdx;
+        }
+      }
+
+      if (rightChildIdx < length) {
+        rightChild = this.values[rightChildIdx];
+        if (
+          (swap === null && rightChild > element) ||
+          (swap !== null && rightChild > leftChild)
+        ) {
+          swap = rightChildIdx;
+        }
+      }
+
+      if (swap === null) {
+        break;
+      }
+      this.values[idx] = this.values[swap];
+      this.values[swap] = element;
+      idx = swap;
     }
   }
 }
@@ -62,10 +91,10 @@ class MaxBinaryHeap {
 
 */
 
-let newHeap = new MaxBinaryHeap()
+let newHeap = new MaxBinaryHeap();
 // console.log(newHeap)
-newHeap.extractMax()
-console.log('this is after extraction', newHeap)
+newHeap.extractMax();
+console.log('this is after extraction', newHeap);
 
 /*
 
