@@ -70,7 +70,7 @@ class Graph {
     visited[start] = true
 
     while (stack.length) {
-      console.log(stack)
+      // console.log(stack)
       currentVertex = stack.pop()
       result.push(currentVertex)
 
