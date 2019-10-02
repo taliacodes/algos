@@ -8,6 +8,7 @@ class Graph {
       adjList[vertex] = [];
     }
   }
+
   addEdge(vertex1, vertex2) {
     //check if the vertex exists, push the edge into the vertex
     let adjList = this.adjacencyList;
@@ -22,6 +23,7 @@ class Graph {
       adjList[vertex2] = [vertex1];
     }
   }
+
   removeEdge(vertex1, vertex2) {
     this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(
       v => v !== vertex2
@@ -30,6 +32,7 @@ class Graph {
       v => v !== vertex1
     );
   }
+
   removeVertex(vertex) {
     let adjList = this.adjacencyList;
     for (let i = 0; i < adjList[vertex].length; i++) {
@@ -38,12 +41,8 @@ class Graph {
     }
     delete adjList[vertex];
   }
-  dfsRecursive(start) {
-    //if vertex is empty, return null
-    //add vertex to results list
-    //mark vertex as visited
-    //for each neighbor in vertex's neighbors: if neighbor is not visited, recursively call DFS on neighbor
 
+  dfsRecursive(start) {
     let visited = {};
     let result = [];
     let adjacencyList = this.adjacencyList;
@@ -61,27 +60,50 @@ class Graph {
 
     return result;
   }
+
   dfsIterative(start) {
-    let stack = []
-    let result = []
-    let visited = {}
+    let stack = [start];
+    let result = [];
+    let visited = {};
     let currentVertex;
-    stack.push(start)
-    visited[start] = true
+    visited[start] = true;
 
     while (stack.length) {
-      // console.log(stack)
-      currentVertex = stack.pop()
-      result.push(currentVertex)
+      currentVertex = stack.pop();
+      result.push(currentVertex);
 
       this.adjacencyList[currentVertex].forEach(neighbor => {
         if (!visited[neighbor]) {
-          visited[neighbor] = true
-          stack.push(neighbor)
+          visited[neighbor] = true;
+          stack.push(neighbor);
         }
-      })
+      });
     }
-    return result
+
+    return result;
+  }
+
+  bfsIterative(start) {
+    let visited = {};
+    let result = [];
+    let queue = [start];
+    let currentVertex;
+
+    visited[start] = true;
+
+    while (queue.length) {
+      currentVertex = queue.shift();
+      result.push(currentVertex);
+
+      this.adjacencyList[currentVertex].forEach(neighbor => {
+        if (!visited[neighbor]) {
+          visited[neighbor] = true;
+          queue.push(neighbor);
+        }
+      });
+    }
+
+    console.log(result);
   }
 }
 
@@ -101,10 +123,9 @@ newGraph.addEdge('D', 'E');
 newGraph.addEdge('D', 'F');
 newGraph.addEdge('F', 'E');
 
-newGraph.dfsIterative('A');
+newGraph.bfsIterative('B');
 
 // console.log(newGraph);
-
 
 // this.adjacencyList = {
 //   A: [ 'B', 'C' ],
@@ -114,3 +135,4 @@ newGraph.dfsIterative('A');
 //   E: [ 'C', 'D', 'F' ],
 //   F: [ 'D', 'E' ]
 // }
+
