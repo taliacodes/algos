@@ -1,23 +1,20 @@
 //Write a function that takes a string as input and reverse only the vowels of a string.
 
-
-const isAVowel = (char) => {
-  let vowelsArr = ['a', 'e', 'i', 'o', 'u']
-  return vowelsArr.includes(char.toLowerCase())
-}
+//Note: changed the time complexity of this algorithm from O(m*n) because we're looping through the string and then looping through the vowels (using .includes) to O(n) because the Set object has O(1) lookup
 
 const reverseVowels = (str) => {
+  let vowelSet = new Set(['a', 'e', 'i', 'o', 'u'])
   let stack = []
   for (let i = 0; i < str.length; i++) {
     let char = str[i]
-    if (isAVowel(char)) {
+    if (vowelSet.has(char)) {
       stack.push(char)
     }
   }
   let reversedStr = ''
   for (let i = 0; i < str.length; i++) {
     let char = str[i]
-    if (isAVowel(char)) {
+    if (vowelSet.has(char)) {
       reversedStr += stack.pop()
     }
     else {
@@ -45,6 +42,7 @@ const reverseVowels = (str) => {
 //   }
 //   return str
 // }
+
 
 console.log(reverseVowels("hello")) // holle
 console.log(reverseVowels("leetcode")) //leotcede
