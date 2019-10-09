@@ -68,6 +68,7 @@ class BinarySearchTree {
       return -1;
     }
   }
+  
 }
 
 let bst = new BinarySearchTree();
@@ -79,7 +80,8 @@ bst.insert(16);
 bst.insert(30);
 bst.insert(28);
 bst.insert(40);
+console.log(bst)
 
-console.log(bst.bfs()); //[20, 10, 30, 5, 16, 28, 40]
+// console.log(bst.bfs()); //[20, 10, 30, 5, 16, 28, 40]
 
-console.log(bst.dfsIn()); //[5,10,16,20,28,30,40]
+// console.log(bst.dfsIn()); //[5,10,16,20,28,30,40]

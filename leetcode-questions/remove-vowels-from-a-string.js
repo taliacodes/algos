@@ -36,6 +36,7 @@ const removeVowels2 = str => {
 
 
 
+
 console.log(removeVowels('leetcodeisacommunityforcoders')); // ltcscmmntyfrcdrs
 console.log(removeVowels('thisisacat')); // thssct
 console.log(removeVowels('aeiou')); //

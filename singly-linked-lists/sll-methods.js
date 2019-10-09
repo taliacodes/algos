@@ -110,13 +110,22 @@ class SinglyLinkedList {
     this.head = this.tail;
     this.tail = node;
     let next;
-    let prev;
+    let prev = null;
     for (let i = 0; i < this.length; i++) {
       next = node.next;
       node.next = prev;
       prev = node;
       node = next;
     }
-    return this;
+    this.print()
+  }
+  print() {
+    let arr = []
+    let curr = this.head
+    while(curr) {
+      arr.push(curr.val)
+      curr = curr.next
+    }
+    console.log(arr)
   }
 }
