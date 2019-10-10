@@ -1,23 +1,101 @@
-//given a string of letters, 
+/* eslint-disable complexity */
+// Given a string, reduce the string by removing 3 or more consecutive identical characters. You should greedily remove characters from left to right.
 
-input: 'aabbbaaacc' 
-            j
-          i
-output: 'cc'
+const crushIt = str => {
+  if (!str.length || str.length < 3) {
+    return str;
+  }
+  let stack = [];
+  for (let i = 0; i < str.length; i++) {
+    
+    let curr = str[i];
+    let lastIdx = stack.length - 1;
+    if (stack.length && stack[lastIdx].char === curr) {
+      stack[lastIdx].value++;
+    } else {
+      if (
+        stack.length &&
+        stack[lastIdx].char !== curr &&
+        stack[lastIdx].value >= 3
+      ) {
+        stack.pop();
+        lastIdx = stack.length - 1;
+      }
+      if (stack.length && stack[lastIdx].char === curr) {
+        stack[lastIdx].value++;
+      } else {
+        stack.push({ char: curr, value: 1 });
+      }
+    }
+    if (i === str.length - 1 && stack[lastIdx].value >= 3) stack.pop();
+    console.log('this is the stack', stack)
+  }
+  return stack.map(elem => elem.char.repeat(elem.value)).join('');
+};
 
-let currLetter = 'a'
-let count = 2
-let p1 = 0
-let p2 = 0
+// // eslint-disable-next-line max-statements
+// const crushIt = str => {
+//   str = str.split('')
+//   console.log(str)
+//   let count = 1 // 3
+//   let nextLetterCount = 0 // 3
+//   let nextLetter = '' // a
+//   let currLetter = str[0] // b
+//   let stack = []
+//   for (let i = 1; i < str.length; i++) {
+//     console.log('this is the string', str)
+//     console.log('this is the stack', stack)
+//     let char = str[i]
+//     if (char === currLetter) {
+//       count++
+//     }
+//     else if (char !== currLetter && count < 3) {
+//       stack.push([currLetter, count])
+//       count = 1
+//       currLetter = char
+//     }
+//     else if (char !== currLetter && count >= 3) {
+//       if (stack.length && char === stack[stack.length - 1][0]) {
+//         nextLetter = currLetter
+//         nextLetterCount = 1
+//         for (let j = i + 1; j < str.length; j++) {
+//           let nextChar = str[j]
+//           if (nextChar === nextLetter) {
+//             nextLetterCount++
+//           }
+//           else {
+//             break;
+//           }
+//         }
+//         if (nextLetterCount + stack[stack.length - 1][1] >= 3) {
+//           str.splice(i - count - stack[stack.length - 1][1], i + nextLetterCount)
+//         stack.pop()
+//         nextLetterCount = 0
+//         nextLetter = ''
+//         count = 1
+//         currLetter = char
+//         }
+//       }
+//       else {
+//         str.splice(i, i + count)
+//         nextLetterCount = 0
+//         nextLetter = ''
+//         count = 1
+//         currLetter = char
 
+//       }
+//     }
+//   }
+//   return str.join('')
+// }
 
-while (j !== lengthOFSTr)
-if (j === currentLetter) 
-  j++
-  
-else {
+// aabbbacc
+//      i
+// stack = [['a', 2]]
 
-  currentLetter = ''
-  count = 1
-  i++
-}
+console.log(crushIt('aabbbaaacc')); // cc
+console.log(crushIt('aaabbbaaccc')); // aa
+console.log(crushIt('aabbcccaaabbaa')); //''
+console.log(crushIt('abbaccbbbcc')) // abba
+
+//put it in a hashmap
