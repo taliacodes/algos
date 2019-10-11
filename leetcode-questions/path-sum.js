@@ -15,17 +15,18 @@
 
 class Node {
   constructor(val) {
-    this.val = val
-    this.left = this.right = null
+    this.val = val;
+    this.left = this.right = null;
   }
 }
 
 const hasPathSum = (root, sum) => {
-  if (root === null) {
-    return false
+  if (!root) return false;
+  if (!root.left && !root.right && sum - root.val === 0) {
+    return true;
+  } else {
+    return (
+      hasPathSum(root.left, sum - root.val) || (root.right, sum - root.val)
+    );
   }
-  else if (root.left === null && root.right === null & sum - root.val === 0) return true
-  else {
-    return hasPathSum(root.left, sum - root.val) || (root.right, sum - root.val)
-  }
-}
+};
