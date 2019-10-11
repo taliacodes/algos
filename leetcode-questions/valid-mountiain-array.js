@@ -7,9 +7,6 @@
 // A[0] < A[1] < ... A[i-1] < A[i]
 // A[i] > A[i+1] > ... > A[A.length - 1]
  
-
-
-
 const validMountainArray = (arr) => {
   let i = 0
   let j = arr.length - 1

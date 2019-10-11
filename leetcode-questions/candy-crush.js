@@ -33,6 +33,22 @@ const crushIt = str => {
   return stack.map(elem => elem.char.repeat(elem.value)).join('');
 };
 
+//recrusive solution
+
+const crushIt2 = str => {
+  if (str.length < 3) return str
+  for (let start = 0; start < str.length - 2; start++) {
+    if (str[start] === str[start + 1] && str[start] === str[start+2]) {
+      let end = start + 2
+      while (end < str.length - 1 && str[end + 1] === str[end]) {
+        end++
+      }
+      return crushIt(str.slice(0,start) + str.slice(end+1))
+    }
+  }
+  return str
+}
+
 // // eslint-disable-next-line max-statements
 // const crushIt = str => {
 //   str = str.split('')

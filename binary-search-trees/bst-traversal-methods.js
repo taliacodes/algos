@@ -76,6 +76,7 @@ class BinarySearchTree {
       let node = this.root;
       queue.push(node);
       while (queue.length) {
+        console.log(queue.length);
         node = queue.shift();
         data.push(node.val);
         if (node.left) {
@@ -85,7 +86,7 @@ class BinarySearchTree {
           queue.push(node.right);
         }
       }
-      return data;
+      console.log(data);
     }
   }
   dfsIn() {
@@ -97,6 +98,30 @@ class BinarySearchTree {
     }
     traverse(this.root);
     return data;
+  }
+  bstRightSideView() {
+    let visibleValues = [];
+    if (this.root === null) return visibleValues;
+    let queue = [];
+    queue.push(this.root)
+    while (queue.length) {
+      console.log(queue)
+      console.log(visibleValues)
+      let size = queue.length;
+      for (let i = 0; i < size; i++) {
+        let curr = queue.shift();
+        if (i === size - 1) {
+          visibleValues.push(curr.val);
+        }
+        if (curr.left !== null) {
+          queue.push(curr.left)
+        }
+        if (curr.right !== null) {
+          queue.push(curr.right)
+        }
+      }
+    }
+    return visibleValues
   }
 }
 
@@ -110,6 +135,8 @@ bst.insert(30);
 bst.insert(28);
 bst.insert(40);
 
-console.log(bst.bfs()); //[20, 10, 30, 5, 16, 28, 40]
+// console.log(bst.bfs()); //[20, 10, 30, 5, 16, 28, 40]
 
-console.log(bst.dfsIn()); //[5,10,16,20,28,30,40]
+console.log(bst.bstRightSideView())
+
+// console.log(bst.dfsIn()); //[5,10,16,20,28,30,40]

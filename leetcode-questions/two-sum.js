@@ -21,8 +21,8 @@ const twoSum2 = (arr, target) => {
 }
 
 
-console.log(twoSum([2,7,11,15], 9)) //[0,1]
-console.log(twoSum([3,5,7,8], 15)) //[2,3]
+console.log(twoSum2([2,7,11,15], 9)) //[0,1]
+console.log(twoSum2([3,5,7,8], 15)) //[2,3]
 
 // {
 //   2: 0,

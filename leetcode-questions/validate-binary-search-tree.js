@@ -7,33 +7,32 @@
 // The left subtree of a node contains only nodes with keys less than the node's key.
 // The right subtree of a node contains only nodes with keys greater than the node's key.
 // Both the left and right subtrees must also be binary search trees.
- 
 
 const isValidBST = (root, lower = -Infinity, upper = Infinity) => {
   //do an in-order dfs of the binary search tree
   //then check if the array is sorted
   //if the array is sorted, then return true
   //else return false
-  let data = []
-  
+  let data = [];
+
   function dfs(root) {
-      if (!root) return;
+    if (!root) return;
     if (root.left) {
-      dfs(root.left)
+      dfs(root.left);
     }
-    data.push(root.val)
+    data.push(root.val);
     if (root.right) {
-      dfs(root.right)
+      dfs(root.right);
     }
   }
-  dfs(root)
+  dfs(root);
   for (let i = 0; i < data.length; i++) {
-    if (data[i+1] <= data[i]) {
-      return false
+    if (data[i + 1] <= data[i]) {
+      return false;
     }
   }
-  return true
-}
+  return true;
+};
 
 // Example 1:
 

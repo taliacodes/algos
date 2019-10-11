@@ -57,42 +57,84 @@ class BinarySearchTree {
     }
   }
   bstRightSideView() {
-    if (!this.root) {
-      return [];
-    } else {
-      let queue = [];
-      let data = [[1, 1], [2, 2], [3, 2], [4, 3]];
-      let hash = {
-        1: 1,
-        2: 3,
-        3: 4
+    let visibleValues = [];
+    if (this.root === null) return visibleValues;
+    let queue = [];
+    queue.push(this.root)
+    while (queue.length) {
+      // console.log(queue)
+      // console.log(visibleValues)
+      let size = queue.length;
+      for (let i = 0; i < size; i++) {
+        let curr = queue.shift();
+        if (i === size - 1) {
+          visibleValues.push(curr.val);
+        }
+        if (curr.left !== null) {
+          queue.push(curr.left)
+        }
+        if (curr.right !== null) {
+          queue.push(curr.right)
+        }
       }
-      let node = this.root;
-      let currentLevel;
-      queue.push(node)
-
-      while (queue.length) {
-        // console.log('this is the data', data)
-        node = queue.shift();
-        data.push([node.val, currentLevel]);
-        if (node.left) queue.push([node.left, currentLevel + 1]);
-        if (node.right) queue.push(node.right);
-      }
-      return data
     }
+    return visibleValues
   }
   bstRightSideView() {
-    if (!this.root) {
-      return []
+    //create an array to hold all the values
+    let visibleValues = []
+    //if the root doesn't exist, return an empty array
+    if (this.root === null) return visibleValues
+    //create a queue to hold left and right nodes
+    let queue = []
+    //push the root into the queue
+    queue.push(this.root)
+    //while there is something in the queue, there are still nodes to process
+    while(queue.length) {
+      //create variable to hold queues length
+      let size = queue.length
+      //loop through the queue, in the first iteration, the queue will have 1 thing in it
+      for (let i = 0; i < size; i++) {
+        let curr = queue.shift()
+        if (i === size - 1) {
+          visibleValues.push(curr.val)
+        }
+        if (curr.left) {
+          queue.push(curr.left)
+        }
+        if (curr.right) {
+          queue.push(curr.right)
+        }
+      }
     }
-    let queue = [[this.root, 1]]
+    return visibleValues
+  }
+  bst() {
     let data = []
-    
-    while () {
-
+    if (!this.root) {
+      return;
     }
+    let queue = []
+    queue.push(this.root)
+    while (queue.length) {
+      let curr = queue.shift()
+      data.push(curr)
+      if (curr.left) {
+        queue.push(curr.left)
+      }
+      if (curr.right) {
+        queue.push(curr.right)
+      }
+    }
+    traverse(this.root)
+    return data
   }
 }
+
+queue: [5, 16, 28, 40]
+size: 2
+curr: 30
+visibleValues: [20, 30]
 
 let bst = new BinarySearchTree();
 bst.insert(10)

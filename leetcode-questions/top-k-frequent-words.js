@@ -34,7 +34,7 @@ const topKFrequent = (array, k) => {
     else {
       return hashMap[b] - hashMap[a]
     }
-  }).slice(0,k)
+  }).slice(0, k)
   // console.log('this is the word array', wordArr)
   return wordArr
 }
