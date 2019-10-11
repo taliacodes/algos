@@ -48,16 +48,18 @@ class Graph {
     let adjacencyList = this.adjacencyList;
 
     (function dfs(vertex) {
+      console.log('this is the result', result)
       if (!vertex) return null;
       result.push(vertex);
       visited[vertex] = true;
       adjacencyList[vertex].forEach(neighbor => {
         if (!visited[neighbor]) {
+          console.log('this is the neighbor', neighbor)
           return dfs(neighbor);
         }
       });
     })(start);
-
+    
     return result;
   }
 
@@ -69,6 +71,7 @@ class Graph {
     visited[start] = true;
 
     while (stack.length) {
+      
       currentVertex = stack.pop();
       result.push(currentVertex);
 
@@ -78,9 +81,10 @@ class Graph {
           stack.push(neighbor);
         }
       });
+      console.log(stack)
     }
 
-    return result;
+    console.log('this is the result of dfsiterative', result)
   }
 
   bfsIterative(start) {
@@ -115,6 +119,7 @@ newGraph.addVertex('C');
 newGraph.addVertex('D');
 newGraph.addVertex('E');
 newGraph.addVertex('F');
+newGraph.addVertex('G')
 newGraph.addEdge('A', 'B');
 newGraph.addEdge('B', 'D');
 newGraph.addEdge('A', 'C');
@@ -123,7 +128,7 @@ newGraph.addEdge('D', 'E');
 newGraph.addEdge('D', 'F');
 newGraph.addEdge('F', 'E');
 
-newGraph.bfsIterative('B');
+newGraph.dfsRecursive('A');
 
 // console.log(newGraph);
 

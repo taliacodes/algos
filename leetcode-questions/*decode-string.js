@@ -8,24 +8,55 @@
 
 
 const decode = (str) => {
+  let resultStr = ''
   let bracketStack = []
-  let currentMultiplier = []
-  
+  let multiplierStack = []
+  let currStr = ''
+
   for (let i = 0; i < str.length; i++) {
     let char = str[i]
-
+    if (!bracketStack.length && !multiplierStack.length && isLetter(char)) {
+      resultStr += char
+    }
+    if (isNum(char)) {
+      multiplierStack.push(parseInt(char))
+    }
+    else if (char === '[') {
+      bracketStack.push(char)
+    }
+    else if (isLetter(char)) {
+      currStr += char
+    }
+    else {
+      bracketStack.pop()
+      let multiplier = multiplierStack.pop()
+      resultStr += currStr.repeat(multiplier)
+      currStr = ''
+    }
+    
   }
+  return resultStr
 }
 
-bracketStack ['['
-currentMultiplier [3]
-letterHolder ['a']
+function isLetter(str) {
+  return (/[a-z]/.test(str));
+}
+function isNum(str) {
+  return (/[2-9]/g).test(str)
+}
+console.log(decode('3[a]2[bc]')) //"aaabcbc"
 
-resultStr = 'acc'
+// bracketStack ['['
+// currentMultiplier [3]
+// letterHolder ['a']
 
-console.log(decode('3[a]2[bc]'))
-console.log(decode('3[a2[c]]'))
-console.log(decode('2[abc]3[cd]ef'))
+// resultStr = 'acc'
+
+// console.log('Chorus lyrics for "Happy": ' + chorus.repeat(27));
+
+
+console.log(decode('3[a2[c]]')) // "accaccacc"
+console.log(decode('2[abc]3[cd]ef')) //"abcabccdcdcdef"
 
 console.log()
 
