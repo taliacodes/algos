@@ -2,46 +2,36 @@
 
 // The graph is given as follows:  the nodes are 0, 1, ..., graph.length - 1.  graph[i] is a list of all nodes j for which the edge (i, j) exists.
 
-
-
-const allPathsSourceTarget = (graph) => {
-  let adjList = {}
+const allPathsSourceTarget = graph => {
+  let adjList = {};
   for (let i = 0; i < graph.length; i++) {
-    adjList[i] = graph[i]
+    adjList[i] = graph[i];
   }
-  let visited = {}
-  let result = []
-  let allPaths = []
+
+  let current = [];
+  let allPaths = [];
 
   function dfs(vertex) {
-    if (!vertex) return null
-    result.push(vertex)
-    visited[vertex] = true
-    allPaths.push(result)
-    
+    // if (adjList[vertex] === []) allPaths.push(current)
+    current.push(vertex);
+    if (adjList[vertex] === []) return;
+    console.log(current)
     adjList[vertex].forEach(neighbor => {
-      console.log('this is the result', result)
-      if (!visited[neighbor]) {
-        
-        return dfs(neighbor)
-      }
-    })
-    
+      dfs(neighbor);
+    });
   }
 
-  dfs('0')
-  console.log(result, allPaths)
-}
 
+  dfs('0');
+  console.log(allPaths)
+};
 
-allPathsSourceTarget([['1', '2'], ['3'], ['3'], []] ) // [[0,1,3],[0,2,3]] 
+allPathsSourceTarget([['1', '2'], ['3'], ['3'], []]); // [[0,1,3],[0,2,3]]
 
 // 0--->1
 // |    |
 // v    v
 // 2--->3
-
-
 
 // dfsRecursive(start) {
 //   let visited = {};
@@ -61,7 +51,6 @@ allPathsSourceTarget([['1', '2'], ['3'], ['3'], []] ) // [[0,1,3],[0,2,3]]
 
 //   return result;
 // }
-
 
 // dfsIterative(start) {
 //   let stack = [start];
@@ -85,10 +74,9 @@ allPathsSourceTarget([['1', '2'], ['3'], ['3'], []] ) // [[0,1,3],[0,2,3]]
 //   return result;
 // }
 
-
 // Example:
-// Input: [[1,2], [3], [3], []] 
-// Output: [[0,1,3],[0,2,3]] 
+// Input: [[1,2], [3], [3], []]
+// Output: [[0,1,3],[0,2,3]]
 // Explanation: The graph looks like this:
 // 0--->1
 // |    |

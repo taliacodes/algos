@@ -49,6 +49,36 @@ const crushIt2 = str => {
   return str
 }
 
+
+const crushIt3 = str => {
+  if (!str.length || str.length === 1) {
+    return str
+  }
+  let stack = []
+  for (let i = 0; i < str.length; i++) {
+    let curr = str[i]
+    let lastId = stack.length - 1
+
+    //check if equal
+    if (stack.length && stack[lastId].char === curr) {
+      stack[lastId].value++
+    } else {
+      if (stack.length && stack[lastId].char !== curr && stack[lastId].value >= 3) {
+        stack.pop()
+        lastId = stack.length - 1
+      }
+      if (stack.length && stack[lastId].char === curr) {
+        stack[lastId].value++
+      } else {
+        stack.push( {char: curr, value: 1})
+      }
+      
+      if (i === str.length - 1 && stack[lastId].value >= 3) stack.pop()
+    }
+  }
+  return stack.map(elem => elem.char.repeat(elem.value)).join('')
+}
+
 // // eslint-disable-next-line max-statements
 // const crushIt = str => {
 //   str = str.split('')
